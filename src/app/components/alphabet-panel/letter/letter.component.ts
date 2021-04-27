@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-letter',
@@ -11,10 +11,6 @@ export class LetterComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  onLetterClick(letter: string): void {
-    console.log('letter: ', letter);
   }
 
 }

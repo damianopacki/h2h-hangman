@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { Components } from './components';
+import { PasswordComponent } from './components/password/password.component';
 
 @NgModule({
   declarations: [
