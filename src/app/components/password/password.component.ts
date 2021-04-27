@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { CounterService } from 'src/app/services/counter.service';
 
 @Component({
   selector: 'app-password',
@@ -7,13 +8,12 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 })
 export class PasswordComponent implements OnInit, OnChanges {
   @Input() clickedLetter: string;
-  @Output() onMissedTry = new EventEmitter<boolean>();
 
   public passwordsList = ['Argentyna', 'Polska', 'Słowacja'];
   public currentPassword: string;
   public hiddenPassword: string[] = [];
 
-  constructor() { }
+  constructor(private counterService: CounterService) { }
 
   ngOnInit(): void {
     this.generateRandomPassword();
@@ -34,10 +34,10 @@ export class PasswordComponent implements OnInit, OnChanges {
       for (let i = 0;  i < this.currentPassword.length; i++) {
         if (this.currentPassword.split('')[i] === selectedLetter) {
           this.updateHiddenPassword(selectedLetter, i);
-        } else {
-          this.emitMiss();
         }
       }
+    } else if (changes.clickedLetter.currentValue && !this.currentPassword.split('').includes(selectedLetter)) {
+      this.emitMiss();
     }
   }
 
@@ -47,7 +47,7 @@ export class PasswordComponent implements OnInit, OnChanges {
   }
 
   emitMiss(): void {
-    this.onMissedTry.emit(true);
+    this.counterService.missedGuessesCounterValue += 1;
   }
 
 }
