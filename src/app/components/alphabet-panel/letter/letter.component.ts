@@ -1,4 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { GuessStateEnum } from 'src/app/enums/guess-state.enum';
+import { LetterStateEnum } from 'src/app/enums/letter-state.enum';
+import { CounterService } from 'src/app/services/counter.service';
 
 @Component({
   selector: 'app-letter',
@@ -8,9 +11,19 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class LetterComponent implements OnInit {
   @Input() letter: string;
 
-  constructor() { }
+  constructor(private counterService: CounterService) { }
 
   ngOnInit(): void {
+  }
+
+  updateLetterState(letter: HTMLElement): void {
+    this.counterService.currentPassword.subscribe((value: string) => {
+      if (value.includes(letter.innerHTML)) {
+        letter.classList.add(GuessStateEnum.HIT);
+      } else {
+        letter.classList.add(GuessStateEnum.MISS);
+      }
+    });
   }
 
 }

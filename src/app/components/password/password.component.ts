@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CounterService } from 'src/app/services/counter.service';
 
 @Component({
@@ -26,6 +26,7 @@ export class PasswordComponent implements OnInit, OnChanges {
   generateRandomPassword(): void {
     const randomIndex = Math.floor(Math.random() * this.passwordsList.length);
     this.currentPassword = this.passwordsList[randomIndex].toUpperCase();
+    this.counterService.currentPassword.next(this.currentPassword);
   }
 
   checkIfPasswordIncludesSelectedLetter(changes: SimpleChanges): void {
@@ -37,7 +38,7 @@ export class PasswordComponent implements OnInit, OnChanges {
         }
       }
     } else if (changes.clickedLetter.currentValue && !this.currentPassword.split('').includes(selectedLetter)) {
-      this.emitMiss();
+      this.updateMissedGuessesCounterValue();
     }
   }
 
@@ -46,7 +47,7 @@ export class PasswordComponent implements OnInit, OnChanges {
     this.hiddenPassword[index] = selectedLetter;
   }
 
-  emitMiss(): void {
+  updateMissedGuessesCounterValue(): void {
     this.counterService.missedGuessesCounterValue += 1;
   }
 

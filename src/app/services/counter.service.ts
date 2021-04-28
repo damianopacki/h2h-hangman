@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class CounterService {
   public missedGuessesCounter = new BehaviorSubject<number>(0);
   public maxGuessesNumber = 5;
+  public currentPassword = new BehaviorSubject<string>('');
 
   constructor() { }
 
