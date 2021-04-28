@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { GameStateEnum } from 'src/app/enums/game-state.enum';
 import { CounterService } from 'src/app/services/counter.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class PasswordComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.generateRandomPassword();
+    this.counterService.gameState.subscribe(value => console.log('gameState: ', value));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -37,8 +39,14 @@ export class PasswordComponent implements OnInit, OnChanges {
           this.updateHiddenPassword(selectedLetter, i);
         }
       }
+      if (this.checkIfHiddenPasswordEqualsCurrentPassword()) {
+        this.updateGameState(GameStateEnum.SUCCESS);
+      }
     } else if (changes.clickedLetter.currentValue && !this.currentPassword.split('').includes(selectedLetter)) {
       this.updateMissedGuessesCounterValue();
+      if (this.checkIfAnyGuessesLeft()) {
+        this.updateGameState(GameStateEnum.FAILURE);
+      }
     }
   }
 
@@ -49,6 +57,18 @@ export class PasswordComponent implements OnInit, OnChanges {
 
   updateMissedGuessesCounterValue(): void {
     this.counterService.missedGuessesCounterValue += 1;
+  }
+
+  checkIfHiddenPasswordEqualsCurrentPassword(): boolean {
+    return this.hiddenPassword.join('') === this.currentPassword;
+  }
+
+  checkIfAnyGuessesLeft(): boolean {
+    return this.counterService.missedGuessesCounterValue > this.counterService.maxGuessesNumber;
+  }
+
+  updateGameState(state: GameStateEnum.PENDING | GameStateEnum.SUCCESS | GameStateEnum.FAILURE): void {
+    this.counterService.gameState.next(state);
   }
 
 }

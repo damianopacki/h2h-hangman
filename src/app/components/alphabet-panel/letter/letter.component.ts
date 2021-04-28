@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GuessStateEnum } from 'src/app/enums/guess-state.enum';
-import { LetterStateEnum } from 'src/app/enums/letter-state.enum';
 import { CounterService } from 'src/app/services/counter.service';
 
 @Component({
