@@ -1,0 +1,28 @@
+.ctn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 64px);
+    width: 100vw;
+    background-color: black;
+
+    .title {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 34px;
+        color: lightgreen;
+    }
+
+    p {
+        font-size: 28px;
+        padding: 12px;
+        color: #fff;
+    }
+
+    .try-again-btn {
+        width: 160px;
+        height: 40px;
+        margin-top: 40px;
+    }
+}

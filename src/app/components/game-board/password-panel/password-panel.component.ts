@@ -1,20 +1,23 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { GameStateEnum } from 'src/app/enums/game-state.enum';
 import { CounterService } from 'src/app/services/counter.service';
 
 @Component({
-  selector: 'app-password',
-  templateUrl: './password.component.html',
-  styleUrls: ['./password.component.scss']
+  selector: 'app-password-panel',
+  templateUrl: './password-panel.component.html',
+  styleUrls: ['./password-panel.component.scss']
 })
-export class PasswordComponent implements OnInit, OnChanges {
+export class PasswordPanelComponent implements OnInit, OnChanges {
   @Input() clickedLetter: string;
 
   public passwordsList = ['Argentyna', 'Polska', 'Słowacja'];
   public currentPassword: string;
   public hiddenPassword: string[] = [];
 
-  constructor(private counterService: CounterService) { }
+  constructor(
+    private counterService: CounterService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.generateRandomPassword();
@@ -41,11 +44,13 @@ export class PasswordComponent implements OnInit, OnChanges {
       }
       if (this.checkIfHiddenPasswordEqualsCurrentPassword()) {
         this.updateGameState(GameStateEnum.SUCCESS);
+        this.router.navigate(['/win']);
       }
     } else if (changes.clickedLetter.currentValue && !this.currentPassword.split('').includes(selectedLetter)) {
       this.updateMissedGuessesCounterValue();
-      if (this.checkIfAnyGuessesLeft()) {
+      if (!this.checkIfAnyGuessesLeft()) {
         this.updateGameState(GameStateEnum.FAILURE);
+        this.router.navigate(['/game-over']);
       }
     }
   }
@@ -64,7 +69,7 @@ export class PasswordComponent implements OnInit, OnChanges {
   }
 
   checkIfAnyGuessesLeft(): boolean {
-    return this.counterService.missedGuessesCounterValue > this.counterService.maxGuessesNumber;
+    return this.counterService.missedGuessesCounterValue < this.counterService.maxGuessesNumber;
   }
 
   updateGameState(state: GameStateEnum.PENDING | GameStateEnum.SUCCESS | GameStateEnum.FAILURE): void {

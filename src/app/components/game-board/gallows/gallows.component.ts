@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { CounterService } from 'src/app/services/counter.service';
+import { CounterService } from '../../../services/counter.service';
 
 @Component({
   selector: 'app-gallows',
