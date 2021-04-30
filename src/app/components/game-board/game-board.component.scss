@@ -1,0 +1,15 @@
+:host {
+    flex: 1;
+}
+
+.game-stage-ctn {
+    height: 60px;
+    color: #fff;
+    font-size: 18px;
+    background-color: #000;
+    line-height: 60px;
+
+    span {
+        margin-left: 20px;
+    }
+}

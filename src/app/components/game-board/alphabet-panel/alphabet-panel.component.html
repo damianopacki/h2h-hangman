@@ -1,5 +1,5 @@
 <div class="alphabet-ctn">
     <div *ngFor="let letter of alphabet">
-        <app-letter [letter]="letter" (click)="checkLetter(letter)"></app-letter>
+        <div #letterCtn class="letter" (click)="checkLetter(letter); updateLetterState(letterCtn)">{{ letter }}</div>
     </div>
 </div>

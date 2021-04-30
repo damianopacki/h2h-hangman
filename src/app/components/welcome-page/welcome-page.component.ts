@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CounterService } from 'src/app/services/counter.service';
 
 @Component({
   selector: 'app-welcome-page',
@@ -8,12 +9,15 @@ import { Router } from '@angular/router';
 })
 export class WelcomePageComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private counterService: CounterService) { }
 
   ngOnInit(): void {
   }
 
   startGame(): void {
+    this.counterService.startTimer();
     this.router.navigate(['game']);
   }
 

@@ -1,5 +1,6 @@
 <div class="ctn">
     <h1 class="title">Great Job!</h1>
     <p>You completed the game.</p>
+    <p>Time spent: {{ minutesInGame }}:{{ secondsInGame }}</p>
     <button class="try-again-btn" mat-raised-button color="accent" (click)="restartGame()">Try again!</button>
 </div>

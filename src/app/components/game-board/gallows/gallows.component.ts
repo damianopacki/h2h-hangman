@@ -8,7 +8,7 @@ import { CounterService } from '../../../services/counter.service';
   styleUrls: ['./gallows.component.scss']
 })
 export class GallowsComponent implements OnInit, OnDestroy {
-  public imageSource = '';
+  public imageSource = '../../../assets/s0.jpg';
   public maxGuessesNumber: number;
   private subscriptions$ = new Subscription();
 

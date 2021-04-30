@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CounterService } from 'src/app/services/counter.service';
 
 @Component({
   selector: 'app-win',
@@ -7,14 +8,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./win.component.scss']
 })
 export class WinComponent implements OnInit {
+  public minutesInGame: number;
+  public secondsInGame: number;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private counterService: CounterService) { }
 
   ngOnInit(): void {
+    this.getGameTime();
   }
 
   restartGame(): void {
-    this.router.navigate(['']);
+    this.router.navigate(['/game']);
+    this.counterService.startTimer();
+  }
+
+  getGameTime(): void {
+    this.minutesInGame = Math.floor(this.counterService.gameTime / 60);
+    this.secondsInGame = this.counterService.gameTime % 60;
   }
 
 }

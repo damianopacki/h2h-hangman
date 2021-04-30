@@ -1,5 +1,4 @@
 import { AlphabetPanelComponent } from './game-board/alphabet-panel/alphabet-panel.component';
-import { LetterComponent } from './game-board/alphabet-panel/letter/letter.component';
 import { GallowsComponent } from './game-board/gallows/gallows.component';
 import { GameBoardComponent } from './game-board/game-board.component';
 import { PasswordPanelComponent } from './game-board/password-panel/password-panel.component';
@@ -12,7 +11,6 @@ import { WinComponent } from './win/win.component';
 export const Components = [
     HeaderComponent,
     InfoDialogComponent,
-    LetterComponent,
     AlphabetPanelComponent,
     PasswordPanelComponent,
     GallowsComponent,

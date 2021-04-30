@@ -9,7 +9,7 @@ import { CounterService } from 'src/app/services/counter.service';
   styleUrls: ['./game-over.component.scss']
 })
 export class GameOverComponent implements OnInit, OnDestroy {
-  public currentPassword: string;
+  public currentAnswer: string;
   private subscription$ = new Subscription();
 
   constructor(
@@ -26,12 +26,13 @@ export class GameOverComponent implements OnInit, OnDestroy {
 
   getCurrentPassword(): void {
     this.subscription$.add(
-      this.counterService.currentPassword.subscribe((value: string) => this.currentPassword = value)
+      this.counterService.currentAnswer.subscribe((value: string) => this.currentAnswer = value)
     );
   }
 
   restartGame(): void {
-    this.router.navigate(['']);
+    this.router.navigate(['/game']);
+    this.counterService.startTimer();
   }
 
 }
