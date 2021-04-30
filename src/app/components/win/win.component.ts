@@ -22,6 +22,7 @@ export class WinComponent implements OnInit {
   restartGame(): void {
     this.router.navigate(['/game']);
     this.counterService.startTimer();
+    this.counterService.currentGameStageValue = 1;
   }
 
   getGameTime(): void {

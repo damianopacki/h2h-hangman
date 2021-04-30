@@ -1,6 +1,6 @@
 <div class="game-stage-ctn">
     <span>Game stage - {{ gameStage }}</span>
 </div>
-<app-password-panel [clickedLetter]="clickedLetter"></app-password-panel>
+<app-answer-panel [clickedLetter]="clickedLetter"></app-answer-panel>
 <app-gallows></app-gallows>
 <app-alphabet-panel (onLetterClick)="checkLetter($event)"></app-alphabet-panel>

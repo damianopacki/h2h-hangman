@@ -7,13 +7,10 @@ import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   public title = 'Hangman';
 
   constructor(private dialog: MatDialog) { }
-
-  ngOnInit(): void {
-  }
 
   openInfoDialog(): void {
     this.dialog.open(InfoDialogComponent);

@@ -33,6 +33,7 @@ export class GameOverComponent implements OnInit, OnDestroy {
   restartGame(): void {
     this.router.navigate(['/game']);
     this.counterService.startTimer();
+    this.counterService.currentGameStageValue = 1;
   }
 
 }

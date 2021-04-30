@@ -7,7 +7,7 @@ import { GameStateEnum } from '../enums/game-state.enum';
 })
 export class CounterService {
   public missedGuessesCounter = new BehaviorSubject<number>(0);
-  public maxGuessesNumber = 5;
+  public maxGuessesNumber = 6;
   public currentAnswer = new BehaviorSubject<string>('');
   public gameState = new BehaviorSubject<GameStateEnum.PENDING | GameStateEnum.SUCCESS | GameStateEnum.FAILURE>(GameStateEnum.PENDING);
   public gameTime = 0;
@@ -35,7 +35,6 @@ export class CounterService {
   startTimer(): void {
     this.gameTimeInterval = setInterval(() => {
       this.gameTime++;
-      console.log('1');
     }, 1000);
   }
 

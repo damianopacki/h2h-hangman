@@ -7,14 +7,11 @@ import { CounterService } from 'src/app/services/counter.service';
   templateUrl: './welcome-page.component.html',
   styleUrls: ['./welcome-page.component.scss']
 })
-export class WelcomePageComponent implements OnInit {
+export class WelcomePageComponent {
 
   constructor(
     private router: Router,
     private counterService: CounterService) { }
-
-  ngOnInit(): void {
-  }
 
   startGame(): void {
     this.counterService.startTimer();

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CounterService } from 'src/app/services/counter.service';
 
@@ -12,7 +12,9 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   public gameStage: number;
   private subscriptions$ = new Subscription();
 
-  constructor(private counterService: CounterService) {}
+  constructor(
+    private counterService: CounterService,
+    private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.getCurrentGameStage();
@@ -26,6 +28,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.subscriptions$.add(
       this.counterService.currentGameStage.subscribe((value: number) => {
         this.gameStage = value;
+        this.cdr.detectChanges();
       })
     );
   }

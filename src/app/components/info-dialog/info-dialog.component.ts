@@ -5,11 +5,8 @@ import { MatDialogRef } from '@angular/material/dialog';
   selector: 'app-info-dialog',
   templateUrl: './info-dialog.component.html'
 })
-export class InfoDialogComponent implements OnInit {
+export class InfoDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<InfoDialogComponent>) { }
-
-  ngOnInit(): void {
-  }
 
 }

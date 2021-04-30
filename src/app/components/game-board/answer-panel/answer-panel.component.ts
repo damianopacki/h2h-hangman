@@ -1,16 +1,15 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { GameStateEnum } from 'src/app/enums/game-state.enum';
 import { AnswersService } from 'src/app/services/answers.service';
 import { CounterService } from 'src/app/services/counter.service';
 
 @Component({
-  selector: 'app-password-panel',
-  templateUrl: './password-panel.component.html',
-  styleUrls: ['./password-panel.component.scss']
+  selector: 'app-answer-panel',
+  templateUrl: './answer-panel.component.html',
+  styleUrls: ['./answer-panel.component.scss']
 })
-export class PasswordPanelComponent implements OnInit, OnChanges {
+export class AnswerPanelComponent implements OnInit, OnChanges {
   @Input() clickedLetter: string;
 
   public answersList: string[];
@@ -27,8 +26,6 @@ export class PasswordPanelComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.fetchAnswersList();
-    this.counterService.gameState.subscribe(value => console.log('gameState: ', value));
-    console.log('this.counterService.gameTime: ', this.counterService.gameTime);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -55,17 +52,12 @@ export class PasswordPanelComponent implements OnInit, OnChanges {
   getCurrentAnswer(): void {
     this.currentAnswer = this.selectedAnswersForGame[this.counterService.currentGameStageValue - 1];
     this.counterService.currentAnswer.next(this.currentAnswer);
-    console.log('currentAnswer: ', this.currentAnswer);
   }
 
   checkIfAnswerIncludesSelectedLetter(changes: SimpleChanges): void {
     const selectedLetter = changes.clickedLetter.currentValue;
     if (changes.clickedLetter.currentValue && this.currentAnswer.split('').includes(selectedLetter)) {
-      for (let i = 0;  i < this.currentAnswer.length; i++) {
-        if (this.currentAnswer.split('')[i] === selectedLetter) {
-          this.updateHiddenAnswer(selectedLetter, i);
-        }
-      }
+      this.updateHiddenLetters(selectedLetter);
       if (this.checkIfHiddenAnswerEqualsCurrentAnswer()) {
         if (this.counterService.currentGameStageValue < this.numberOfStages) {
           this.updateGameStage();
@@ -86,6 +78,14 @@ export class PasswordPanelComponent implements OnInit, OnChanges {
         this.router.navigate(['/game-over']);
         this.counterService.pauseTimer();
         this.updateMissedGuessesCounterValue(true);
+      }
+    }
+  }
+
+  updateHiddenLetters(selectedLetter: string): void {
+    for (let i = 0;  i < this.currentAnswer.length; i++) {
+      if (this.currentAnswer.split('')[i] === selectedLetter) {
+        this.updateHiddenAnswer(selectedLetter, i);
       }
     }
   }
